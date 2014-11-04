@@ -10,14 +10,15 @@ end
 
 def avgTempByMonth
 	
-		for item in @array
-			
-			item.match 
+	array=(1..12).to_a
+	count=0
+	for item in @array
+		
+		count++
+		month,day,tempr = /(\d{1,2}).(\d{1,2})\s(\d)/.match(item).captures
 
-			#(?<month>\d{1,2}).(?<day>\d{1,2})\s-(?<tempr>\d)
 
-			end	
-
+	end	
 	
 #@array
 end
