@@ -68,7 +68,7 @@ else
 
  end
  end
- str
+ str.empty? ? 0.to_s : str
  end  
   
 end
