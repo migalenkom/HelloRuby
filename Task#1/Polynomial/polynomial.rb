@@ -8,24 +8,67 @@ class Polynomial
   	
   	str=""
   	
-  	size=@toPolynom.size
-  	count =-1
-  	@toPolynom.each do |e|  
+  size=@toPolynom.size 
+  @toPolynom.each do |e|
+    size-=1
+###
+if size>1
 
-  	size-=1
-  	
-  	if size==0 then
-   	     next
-   	end
-   	if size==1 then
-		str+="#{e}x+"
-   	else
+    if e<-1 
+      
+      str+= "#{e}x^#{size}"
+      
+    elsif  e>1 && size==@toPolynom.size-1
+          str+= "#{e}x^#{size}"
+     
+    elsif e>1
+          
+         str+= "+#{e}x^#{size}"   
 
+    else 
+      str+= case e   
+         when -1 then "-x^#{size}"
+         when 0  then next
+         when 1  then size==@toPolynom.size-1 ? "x^#{size}" : "+x^#{size}"
+         else ""
+         end
+    end
+###
+elsif size==1
 
-  	puts str+="#{e}x^#{size}+"
-	end	
-  	end	
-  	str+=@toPolynom[-1].to_s
-  	
-  end
+    if e<-1 
+      
+      str+= "#{e}x"
+      
+    elsif  e>1 && size==@toPolynom.size-1
+          str+= "#{e}x"
+     
+    elsif e>1
+          
+         str+= "+#{e}x"   
+
+    else 
+      str+= case e   
+         when -1 then "-x"
+         when 0  then next
+         when 1  then "+x"
+         else ""
+         end
+    end
+else 
+  
+    if e>0
+        str+= "+#{e}"
+    
+    elsif e==0 
+        next    
+    else
+        str+= "#{e}"
+    end
+
+ end
+ end
+ str
+ end  
+  
 end
