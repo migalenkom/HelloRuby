@@ -36,8 +36,9 @@ class DictionarySearch
 
             if item.eql?("#{el[0..-3]}#{el[-1]}#{el[-2]}")
 
-              @result << resultitem << item <<  el ## fix it (output format incorrect)
+              res = resultitem << item <<  el 
 
+              @result << res
               test.delete(item)
 
             end
@@ -50,5 +51,5 @@ class DictionarySearch
 end
 
 
-test = DictionarySearch.new("./wordsEn.txt")
-test.word_pairs
+#test = DictionarySearch.new("./wordsEn.txt")
+#test.word_pairs
