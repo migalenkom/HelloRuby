@@ -1,8 +1,8 @@
 require 'test/unit'
-require 'test/unit/ui/console/testrunner'
-require 'polynomial'
+require 'minitest/unit'
+require './polynomial'
  
-class PolynomialTest < Test::Unit::TestCase
+class PolynomialTest < MiniTest::Unit::TestCase
   def setup
     @p1 = Polynomial.new([-5,-2,1,0,8])
     @p2 = Polynomial.new([1,0,7])
@@ -26,10 +26,10 @@ class PolynomialTest < Test::Unit::TestCase
     assert_equal("0", @p4.to_s)
   end
  
-  def test_error
-    e = assert_raise(ArgumentError) { Polynomial.new([1]) }
-    assert_match(/Two or more coefficients are required/, e.message)
-  end
+   def test_error
+     e = assert_raise(ArgumentError) { Polynomial.new([1]) }
+     assert_match(/Two or more coefficients are required/, e.message)
+   end
 end
- 
-Test::Unit::UI::Console::TestRunner.run(PolynomialTest)
+
+MiniTest::Unit.autorun
