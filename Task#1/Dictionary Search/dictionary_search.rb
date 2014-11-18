@@ -6,50 +6,35 @@ class DictionarySearch
   end
 
   def word_pairs
-    @result=[]
-    @valarray=[]
-    @alphabet=('a'..'z').to_a
+
+    @result={}
+    @valArray= []
     @hash={}
     File.readlines(@path).each do |line|
 
-      @hash.has_key?(:"#{line.size-2}") ? @valarray = @hash.fetch(:"#{line.size-2}") : @valarray=[]
+      @hash.has_key?("#{line.size-2}") ? @valArray = @hash.fetch("#{line.size-2}") : @valArray=[]
 
-      @hash[:"#{line.size-2}"]= @valarray << line.delete!("\r\n")
+      @hash["#{line.size-2}"]= @valArray << line.chomp
 
     end
-
     @hash.each do |k, v|
 
-      if k==:"1" || k==:"2" ;next; end
-
-      for bukva in ('a'..'z')
-
-        test = v.select { |q| q =~ /\b["#{bukva}"]/ }
-
-        test.each do |el|
-          resultitem=[]
-          if el[-2] == el[-1]
-            next
+      if k=="1" || k=="2" ;next; end
+        v.each do |el|
+        if @result.has_key?("#{el[0..-3]}#{el[-1]}#{el[-2]}")
+          if el != "#{el[0..-3]}#{el[-1]}#{el[-2]}"
+            @result["#{el[0..-3]}#{el[-1]}#{el[-2]}"] = el
           end
-
-          test.each do |item|
-
-            if item.eql?("#{el[0..-3]}#{el[-1]}#{el[-2]}")
-
-              res = resultitem << item <<  el 
-
-              @result << res
-              test.delete(item)
-
-            end
-          end
+        else
+          @result["#{el}"] = nil
         end
       end
     end
-    @result
+
+    @result.delete_if {|key, value| value == nil}
+    @result.to_a
   end
 end
 
-
-#test = DictionarySearch.new("./wordsEn.txt")
-#test.word_pairs
+test = DictionarySearch.new("./wordsEn.txt")
+print test.word_pairs
